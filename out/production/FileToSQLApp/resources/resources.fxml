@@ -28,7 +28,8 @@
 
         <Label fx:id="queryLabel" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="2"></Label>
 
-        <TextField fx:id="columnLabel" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1">Write name of column</TextField>
+        <TextField fx:id="columnField" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                   onMouseClicked="#clickedColumnLabel">Write name of column</TextField>
         <Button fx:id="addColButton" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="1" text="Add Column"></Button>
 
 </GridPane>
