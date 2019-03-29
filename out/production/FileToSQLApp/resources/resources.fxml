@@ -36,10 +36,22 @@
         <Button fx:id="removeColButton" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="1" text="Remove Column"
                 onMouseClicked="#onRemoveColumn"></Button>
 
-        <Button fx:id="openFileButton" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1" text="Load File"
+
+        <TextField fx:id="staticField" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="1"
+               onMouseClicked="#clickedStatic">Write language</TextField>
+        <Button fx:id="openFileButton" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1" text="Load File/Files"
                 onMouseClicked="#onLoadFile"></Button>
         <Label fx:id="fileLabel" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.columnSpan="2"
-            style="-fx-text-fill: green"></Label>
+                style="-fx-text-fill: green"></Label>
+
+        <Label fx:id="checkLanguageLabel" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2"
+           style="-fx-text-fill: #ff3f00" visible="false">Language is required</Label>
+
+
+        <Button fx:id="generateButton" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="1" text="Generate!"
+                onMouseClicked="#onGenerateFile"></Button>
+        <Label fx:id="fileOutputLabel" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.columnSpan="2"
+                style="-fx-text-fill: blue"></Label>
 
 
 </GridPane>
