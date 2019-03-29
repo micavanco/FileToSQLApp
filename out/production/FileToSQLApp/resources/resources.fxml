@@ -36,4 +36,10 @@
         <Button fx:id="removeColButton" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="1" text="Remove Column"
                 onMouseClicked="#onRemoveColumn"></Button>
 
+        <Button fx:id="openFileButton" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1" text="Load File"
+                onMouseClicked="#onLoadFile"></Button>
+        <Label fx:id="fileLabel" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.columnSpan="2"
+            style="-fx-text-fill: green"></Label>
+
+
 </GridPane>

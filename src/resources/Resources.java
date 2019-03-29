@@ -2,17 +2,22 @@ package resources;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Resources {
     public TextField columnField;
     public TextField query;
-    public boolean onLoad;
+    private boolean onLoad;
     public Label queryLabel;
-    public String tabel;
-    public List<String> columns;
+    private String tabel;
+    private List<String> columns;
+    private String fileName;
+    public Label fileLabel;
 
     public void clickedColumnLabel()
     {
@@ -61,7 +66,7 @@ public class Resources {
         }
     }
 
-    public void setQuery()
+    private void setQuery()
     {
         String columnsString = "(";
         if(!columns.isEmpty())
@@ -72,6 +77,19 @@ public class Resources {
         }
 
         queryLabel.setText("insert from "+tabel+" "+columnsString+")");
+    }
+
+    public void onLoadFile()
+    {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Files with values", "*.csv","*.txt"));
+        fileChooser.setTitle("Open file with values");
+        File file = fileChooser.showOpenDialog(new Stage());
+        if(file != null)
+        {
+            fileName = file.getPath();
+            fileLabel.setText(fileName.substring(fileName.lastIndexOf("\\")+1));
+        }
     }
 
 }
