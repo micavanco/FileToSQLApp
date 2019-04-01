@@ -130,7 +130,6 @@ public class Resources {
             {
                 int counter = 1;
                 fileName = file.getPath();
-                System.out.println(fileName);
                 fileLabel.setText(fileLabel.getText()+fileName.substring(fileName.lastIndexOf("\\")+1)+" ("+staticField.getText()+")  ");
                 Scanner sc = new Scanner(file, "UTF-8");
                 while (sc.hasNext())
