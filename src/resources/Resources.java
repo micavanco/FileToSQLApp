@@ -137,7 +137,7 @@ public class Resources {
                     String[] temp = sc.nextLine().split(";");
                     if(temp[0].contains("'"))temp[0]=temp[0].replace("'","''");
                     if(temp[1].contains("'"))temp[1]=temp[1].replace("'","''");
-                    output.add(queryString+" values ("+id+++", '"+temp[0].substring(0,temp[0].length()-1)+"', '"+temp[1].substring(1,temp[1].length()-1)+"', '"+staticField.getText()+"', "+counter+++");\n");
+                    output.add(queryString+" values ("+id+++", '"+temp[0].substring(0,temp[0].length()-1)+"', '"+temp[1].substring(1)+"', '"+staticField.getText()+"', "+counter+++");\n");
                 }
 
                 try {
