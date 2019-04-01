@@ -5,9 +5,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,6 +25,10 @@ public class Resources {
     public Label fileOutputLabel;
     public TextField staticField;
     public Label checkLanguageLabel;
+    private int id;
+    // Queries
+    private String queryString;
+    private List<String> output;
 
     public void clickedColumnLabel()
     {
@@ -71,6 +75,8 @@ public class Resources {
         onLoad = true;
         onLoad2 = true;
         columns = new ArrayList<String>();
+        output = new ArrayList<String>();
+        id = 0;
     }
 
     public void typingTableName()
@@ -99,15 +105,16 @@ public class Resources {
 
     private void setQuery()
     {
-        String columnsString = "(";
+        queryString = "(";
         if(!columns.isEmpty())
         {
             for(String s: columns)
-                columnsString+=(s+", ");
-            columnsString=columnsString.substring(0, columnsString.length()-2);
+                queryString+=(s+", ");
+            queryString=queryString.substring(0, queryString.length()-2);
         }
 
-        queryLabel.setText("insert from "+tabel+" "+columnsString+")");
+        queryString = "insert into "+tabel+" "+queryString+")";
+        queryLabel.setText(queryString);
     }
 
     public void onLoadFile() throws FileNotFoundException
@@ -121,12 +128,15 @@ public class Resources {
             File file = fileChooser.showOpenDialog(new Stage());
             if(file != null)
             {
+                int counter = 1;
                 fileName = file.getPath();
+                System.out.println(fileName);
                 fileLabel.setText(fileLabel.getText()+fileName.substring(fileName.lastIndexOf("\\")+1)+" ("+staticField.getText()+")  ");
                 Scanner sc = new Scanner(file, "UTF-8");
                 while (sc.hasNext())
                 {
-                    System.out.println(sc.nextLine());
+                    String[] temp = sc.nextLine().split(",");
+                    output.add(queryString+" values ("+id+++", "+temp[0]+", "+temp[1]+", "+staticField.getText()+", "+counter+++");\n");
                 }
 
                 try {
@@ -141,9 +151,36 @@ public class Resources {
 
     }
 
-    public void onGenerateFile() throws FileNotFoundException {
-        fileOutputLabel.setText("Generated as: "+fileName.substring(fileName.lastIndexOf("\\")+1, fileName.length()-3)+".sql");
+    public void onGenerateFile() {
+        if(output.size() > 1)
+        {
+            output.add(0, "delete from "+query.getText()+";\n\n");
+            String nameOfFile = "data.sql";
+            fileOutputLabel.setText("Generated as: "+nameOfFile);
+            fileLabel.setText("");
+            query.setText("");
+            staticField.setText("");
+            queryLabel.setText("");
+            id = 0;
+            String path = System.getProperty("user.dir")+"\\output\\"+nameOfFile;
+            File file = new File(path);
+            OutputStream os = null;
+                try {
+                    os = new FileOutputStream(file);
+                    for(String s:output)
+                        os.write(s.getBytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        os.close();
+                    }catch (IOException e)
+                    {}
+                }
 
+            output.clear();
+        }else
+            fileOutputLabel.setText("file not loaded or is empty");
 
     }
 
