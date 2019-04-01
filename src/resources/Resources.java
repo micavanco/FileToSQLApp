@@ -87,14 +87,14 @@ public class Resources {
 
     public void onAddColumn()
     {
-        columns.add("'"+columnField.getText()+"'");
+        columns.add(columnField.getText());
         setQuery();
         columnField.setText("");
     }
 
     public void onRemoveColumn()
     {
-        String temp = "'"+columnField.getText()+"'";
+        String temp = columnField.getText();
         if(columns.contains(temp))
         {
             columns.remove(temp);
@@ -134,8 +134,10 @@ public class Resources {
                 Scanner sc = new Scanner(file, "UTF-8");
                 while (sc.hasNext())
                 {
-                    String[] temp = sc.nextLine().split(",");
-                    output.add(queryString+" values ("+id+++", "+temp[0]+", "+temp[1]+", "+staticField.getText()+", "+counter+++");\n");
+                    String[] temp = sc.nextLine().split(";");
+                    if(temp[0].contains("'"))temp[0]=temp[0].replace("'","''");
+                    if(temp[1].contains("'"))temp[1]=temp[1].replace("'","''");
+                    output.add(queryString+" values ("+id+++", '"+temp[0].substring(0,temp[0].length()-1)+"', '"+temp[1].substring(1,temp[1].length()-1)+"', '"+staticField.getText()+"', "+counter+++");\n");
                 }
 
                 try {
